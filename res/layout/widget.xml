@@ -1,24 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   	android:layout_width="match_parent"
-   	android:layout_height="match_parent"
- 	android:orientation="horizontal"
- 	android:background="@drawable/appwidget_dark_bg">
- 	<TextView 
- 	    android:id="@+id/site_title"
- 	    android:layout_width="0dp"
- 	    android:layout_height="match_parent"
- 	    android:layout_weight="1"
- 	    android:textSize="24dp"
- 	    android:textColor="#FFF"
- 	    android:gravity="center"
- 	    android:text="@string/loading"/>
- 	<ImageButton
- 	    android:id="@+id/status_refresh"
- 	    android:layout_width="70dp"
- 	    android:layout_height="match_parent"
- 	    android:src="@android:drawable/ic_dialog_alert"
- 	    android:padding="10dip"
- 	    android:contentDescription="@string/status_content_description"
- 	    />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/appwidget_dark_bg"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="20dip" 
+        android:layout_weight="1"
+        android:gravity="left|center">
+
+        <TextView
+            android:id="@+id/site_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:text="@string/loading"
+            android:textColor="@android:color/primary_text_dark"
+            android:textSize="24dp"
+            android:singleLine="true"
+            android:ellipsize="end" />
+        <TextView
+            android:id="@+id/site_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:text="@string/loading"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="14dp" 
+            android:singleLine="true"
+            android:ellipsize="end"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/status_refresh"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/status_content_description"
+        android:paddingRight="20dip"
+        android:src="@drawable/navigation_refresh" />
+
 </LinearLayout>
