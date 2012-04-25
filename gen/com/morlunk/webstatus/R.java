@@ -35,14 +35,17 @@ public final class R {
         public static final int navigation_accept=0x7f020012;
         public static final int navigation_cancel=0x7f020013;
         public static final int navigation_refresh=0x7f020014;
-        public static final int widget_preview_dark=0x7f020015;
-        public static final int widget_preview_light=0x7f020016;
+        public static final int widget_preview=0x7f020015;
+        public static final int widget_preview_dark=0x7f020016;
+        public static final int widget_preview_light=0x7f020017;
     }
     public static final class id {
         public static final int create_button=0x7f070000;
-        public static final int site_title=0x7f070001;
-        public static final int site_url=0x7f070002;
-        public static final int status_refresh=0x7f070003;
+        public static final int latency_text=0x7f070005;
+        public static final int site_title=0x7f070002;
+        public static final int site_url=0x7f070003;
+        public static final int status_refresh=0x7f070004;
+        public static final int widget_layout=0x7f070001;
     }
     public static final class layout {
         public static final int main=0x7f030000;

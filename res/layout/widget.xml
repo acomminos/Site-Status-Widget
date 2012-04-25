@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/appwidget_dark_bg"
+    android:background="@drawable/appwidget_dark_bg_clickable"
+    android:clickable="true"
     android:orientation="horizontal" >
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingLeft="20dip" 
+        android:paddingLeft="20dp" 
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="20dp"
         android:layout_weight="1"
         android:gravity="left|center">
 
@@ -20,27 +25,40 @@
             android:gravity="left|center"
             android:text="@string/loading"
             android:textColor="@android:color/primary_text_dark"
-            android:textSize="24dp"
+            android:textSize="24sp"
             android:singleLine="true"
             android:ellipsize="end" />
+
         <TextView
             android:id="@+id/site_url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
             android:gravity="left|center"
+            android:singleLine="true"
             android:text="@string/loading"
             android:textColor="@android:color/secondary_text_dark"
-            android:textSize="14dp" 
-            android:singleLine="true"
-            android:ellipsize="end"/>
+            android:textSize="14dp" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/status_refresh"
-        android:layout_width="60dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:contentDescription="@string/status_content_description"
-        android:paddingRight="20dip"
-        android:src="@drawable/navigation_refresh" />
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:gravity="center|right">
+        <ImageView
+            android:id="@+id/status_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:contentDescription="@string/status_content_description"
+            android:src="@drawable/navigation_refresh"/>
+        <TextView
+            android:id="@+id/latency_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="14dp"/>
+    </LinearLayout>
 
 </LinearLayout>

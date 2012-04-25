@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-    <EditTextPreference android:title="Site name" android:summary="The name of the site to monitor" android:dialogTitle="Enter site name" android:key="site_name"/><EditTextPreference android:key="site_url" android:title="Site URL" android:summary="The URL of the site you wish to monitor" android:dialogTitle="Enter site URL or IP" /><EditTextPreference android:dialogTitle="Enter refresh period" android:positiveButtonText="Ok" android:negativeButtonText="Cancel" android:title="Set refresh period" android:summary="The number of minutes between checks" android:key="refresh_period" android:defaultValue="60" android:dialogMessage="Enter the number of minutes between refreshes."/>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <PreferenceCategory android:title="Basics"><EditTextPreference android:title="Site name" android:summary="The name of the site to monitor" android:dialogTitle="Enter site name" android:key="site_name" /><EditTextPreference android:key="site_url" android:title="Site URL" android:summary="The URL of the site you wish to monitor" android:dialogTitle="Enter site URL or IP" android:defaultValue="http://" /><EditTextPreference android:dialogTitle="Enter refresh period" android:positiveButtonText="Ok" android:negativeButtonText="Cancel" android:title="Set refresh period" android:summary="The number of minutes between checks" android:key="refresh_period" android:defaultValue="60" android:dialogMessage="Enter the number of minutes between refreshes." />
+    
+</PreferenceCategory>
     
     
     

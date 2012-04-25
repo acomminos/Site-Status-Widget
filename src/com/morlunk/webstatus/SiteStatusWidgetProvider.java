@@ -1,8 +1,5 @@
 package com.morlunk.webstatus;
 
-import java.util.HashMap;
-import java.util.List;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -11,13 +8,51 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
 import android.util.Log;
+import android.widget.RemoteViews;
+
 public class SiteStatusWidgetProvider extends AppWidgetProvider {
-	
-	HashMap<Integer, PendingIntent> activePendingIntents = new HashMap<Integer, PendingIntent>();
-	
+	public static void updateWidget(Context context, int widgetId) {
+		// Get update interval
+		long interval = SiteStatusPreferences.getRefreshPeriod(context,
+				widgetId);
+
+		// Begin schedule
+		final Intent intent = new Intent(context, SiteStatusService.class);
+		intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+		final PendingIntent pending = PendingIntent.getService(context, widgetId,
+				intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		final AlarmManager alarm = (AlarmManager) context
+				.getSystemService(Context.ALARM_SERVICE);
+		alarm.cancel(pending);
+		alarm.setRepeating(AlarmManager.ELAPSED_REALTIME,
+				SystemClock.elapsedRealtime(), interval*60000, pending);
+		
+		// Log update
+		Log.i("Site Status", "Widget " + widgetId
+				+ " started updates with interval " + interval + ".");
+	}
+
 	@Override
 	public void onEnabled(Context context) {
 		super.onEnabled(context);
+	}
+	
+	@Override
+	public void onDeleted(Context context, int[] appWidgetIds) {
+		for(int x=0;x<appWidgetIds.length;x++) {
+			SiteStatusPreferences.removePreferences(context, appWidgetIds[x]);
+			// Delete pending intent with widget ID
+			final AlarmManager alarm = (AlarmManager) context
+					.getSystemService(Context.ALARM_SERVICE);
+			PendingIntent pendingIntent = PendingIntent.getService(context, appWidgetIds[x], new Intent(context, SiteStatusService.class), PendingIntent.FLAG_NO_CREATE);
+			if(pendingIntent != null) {
+				alarm.cancel(pendingIntent);
+			}
+			// Log update
+			Log.i("Site Status", "Widget " + appWidgetIds[x]
+					+ " deleted.");
+		}
+		super.onDeleted(context, appWidgetIds);
 	}
 	
 	@Override
@@ -27,55 +62,7 @@ public class SiteStatusWidgetProvider extends AppWidgetProvider {
 		// Loop through app widgets, updating each one.
 		for(int x=0; x<appWidgetIds.length; x++) {
 			int widgetId = appWidgetIds[x];
-			
-			// Get update interval
-			long interval = SiteStatusPreferences.getRefreshPeriod(context, widgetId);
-			
-			// Begin schedule
-			final Intent intent = new Intent(context, SiteStatusService.class);
-			intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-			final PendingIntent pending = PendingIntent.getService(context, 0, intent, 0);
-			final AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-			alarm.cancel(pending);
-			alarm.setRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime(), interval*60000, pending);
-			
-			// Perform an immediate check
-			Intent serviceIntent = new Intent(context, SiteStatusService.class);
-			intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-			context.startService(serviceIntent);
-			
-			// Log update
-			Log.i("Site Status", "Widget "+widgetId+" started updates with interval "+interval+".");
+			updateWidget(context, widgetId);
 		}
-	}
-	
-	@Override
-	public void onDeleted(Context context, int[] appWidgetIds) {
-		for(int x=0;x<appWidgetIds.length;x++) {
-			int widgetId = appWidgetIds[x];
-			// Kill pending intent
-			if(activePendingIntents.containsKey(x)) {
-				final AlarmManager m = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-				m.cancel(activePendingIntents.get(x));
-				activePendingIntents.remove(x);
-				Log.i("Site Status", "Widget "+widgetId+" stopped.");
-			}
-			// Remove configuration
-			SiteStatusPreferences.removePreferences(context, widgetId);
-			// Log deletion
-			Log.i("Site Status", "Widget "+widgetId+" deleted.");
-			super.onDeleted(context, appWidgetIds);
-		}
-	}
-	
-	@Override
-	public void onDisabled(Context context) {
-		// Kill all pending intents
-		final AlarmManager m = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-		for(PendingIntent intent : activePendingIntents.values()) {
-			m.cancel(intent);
-			activePendingIntents.remove(intent);
-		}
-		super.onDisabled(context);
 	}
 }

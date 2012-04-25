@@ -3,6 +3,6 @@
     <string name="app_name">Site Status Widget</string>
     <string name="status_content_description">The status of the site the widget monitors.</string>
     <string name="add_widget">Add Widget</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Loading…</string>
 
 </resources>

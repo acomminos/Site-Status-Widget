@@ -77,8 +77,10 @@ public class SiteStatusPreferences extends PreferenceActivity {
 				editor.putString(SITE_NAME_KEY+"-"+mAppWidgetId, siteName);
 				editor.putString(SITE_URL_KEY+"-"+mAppWidgetId, siteUrl);
 				editor.putLong(REFRESH_PERIOD_KEY+"-"+mAppWidgetId, refreshPeriod);
-				
 				editor.commit();
+				
+				// Perform initial update
+				SiteStatusWidgetProvider.updateWidget(SiteStatusPreferences.this, mAppWidgetId);
 				
 				// Return with widget ID
 				Intent resultValue = new Intent();

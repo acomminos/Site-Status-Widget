@@ -4,8 +4,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import android.app.IntentService;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
+import android.os.SystemClock;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -30,13 +32,18 @@ public class SiteStatusService extends IntentService {
 		
 		// Set 'refreshing' icon while loading
 		remoteViews.setImageViewResource(R.id.status_refresh, R.drawable.navigation_refresh);
-		
+		widgetManager.updateAppWidget(mAppWidgetId, remoteViews);
 		
 		int code;
+		URL u;
+		HttpURLConnection huc;
+		
+		// Get time before transfer
+		long time = SystemClock.elapsedRealtime();
 		
 		try {
-			URL u = new URL(siteUrl);
-			HttpURLConnection huc = (HttpURLConnection)u.openConnection (); 
+			u = new URL(siteUrl);
+			huc = (HttpURLConnection)u.openConnection (); 
 			huc.setRequestMethod("GET"); 
 			huc.connect();
 			code = huc.getResponseCode();
@@ -45,10 +52,16 @@ public class SiteStatusService extends IntentService {
 			code = 404; // TODO provide more detailed error codes
 		} 
 		
+		// Get time after
+		time = SystemClock.elapsedRealtime()-time;
+		
 		// Set name and URL, and image
 		remoteViews.setTextViewText(R.id.site_title, siteName);
 		remoteViews.setTextViewText(R.id.site_url, siteUrl);
+		remoteViews.setTextViewText(R.id.latency_text, time+"ms");
 		remoteViews.setImageViewResource(R.id.status_refresh, code == 200 ? R.drawable.navigation_accept : R.drawable.navigation_cancel);
+		// Set on click action to start the service
+		remoteViews.setOnClickPendingIntent(R.id.widget_layout, PendingIntent.getService(this, mAppWidgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT));
 		widgetManager.updateAppWidget(mAppWidgetId, remoteViews);
 		
 		// Log update
