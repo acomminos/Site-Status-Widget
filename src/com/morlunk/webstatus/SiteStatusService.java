@@ -13,6 +13,8 @@ import android.widget.RemoteViews;
 
 public class SiteStatusService extends IntentService {
 	
+	static final int REQUEST_TIMEOUT = 1000;
+	
 	public SiteStatusService() {
 		super("SiteStatusService");
 	}
@@ -45,6 +47,7 @@ public class SiteStatusService extends IntentService {
 			u = new URL(siteUrl);
 			huc = (HttpURLConnection)u.openConnection (); 
 			huc.setRequestMethod("GET"); 
+			huc.setConnectTimeout(REQUEST_TIMEOUT);
 			huc.connect();
 			code = huc.getResponseCode();
 			huc.disconnect();

@@ -19,7 +19,7 @@ public class SiteStatusWidgetProvider extends AppWidgetProvider {
 		final Intent intent = new Intent(context, SiteStatusService.class);
 		intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
 		final PendingIntent pending = PendingIntent.getService(context, widgetId,
-				intent, PendingIntent.FLAG_UPDATE_CURRENT);
+				intent, PendingIntent.FLAG_CANCEL_CURRENT);
 		final AlarmManager alarm = (AlarmManager) context
 				.getSystemService(Context.ALARM_SERVICE);
 		alarm.cancel(pending);
