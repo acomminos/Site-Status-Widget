@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
 import android.util.Log;
-import android.widget.RemoteViews;
 
 public class SiteStatusWidgetProvider extends AppWidgetProvider {
 	public static void updateWidget(Context context, int widgetId) {
@@ -30,11 +29,6 @@ public class SiteStatusWidgetProvider extends AppWidgetProvider {
 		// Log update
 		Log.i("Site Status", "Widget " + widgetId
 				+ " started updates with interval " + interval + ".");
-	}
-
-	@Override
-	public void onEnabled(Context context) {
-		super.onEnabled(context);
 	}
 	
 	@Override
