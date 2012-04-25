@@ -7,10 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RemoteViews;
 
 public class SiteStatusPreferences extends PreferenceActivity {
 	
@@ -94,15 +92,15 @@ public class SiteStatusPreferences extends PreferenceActivity {
 	
 	
 	public static String getSiteName(Context context, int widgetId) {
-		return getWidgetPreferences(context).getString(SITE_NAME_KEY+"-"+widgetId, "Undefined name");
+		return getWidgetPreferences(context).getString(SITE_NAME_KEY+"-"+widgetId, null);
 	}
 	
 	public static String getSiteUrl(Context context, int widgetId) {
-		return getWidgetPreferences(context).getString(SITE_URL_KEY+"-"+widgetId, "Undefined URL");
+		return getWidgetPreferences(context).getString(SITE_URL_KEY+"-"+widgetId, null);
 	}
 	
 	public static long getRefreshPeriod(Context context, int widgetId) {
-		return getWidgetPreferences(context).getLong(REFRESH_PERIOD_KEY+"-"+widgetId, 10000);
+		return getWidgetPreferences(context).getLong(REFRESH_PERIOD_KEY+"-"+widgetId, 0);
 	}
 	
 	/**
@@ -116,5 +114,20 @@ public class SiteStatusPreferences extends PreferenceActivity {
 		editor.remove(SITE_URL_KEY+"-"+widgetId);
 		editor.remove(REFRESH_PERIOD_KEY+"-"+widgetId);
 		editor.commit();
+	}
+	
+	/**
+	 * Returns true if the passed widget ID is configured in preferences.
+	 * @param context
+	 * @param widgetId
+	 * @return
+	 */
+	public static boolean widgetExists(Context context, int widgetId) {
+		SharedPreferences widgetPreferences = SiteStatusPreferences
+				.getWidgetPreferences(context);
+		return widgetPreferences.contains(SITE_NAME_KEY + "-" + widgetId)
+				&& widgetPreferences.contains(SITE_URL_KEY + "-" + widgetId)
+				&& widgetPreferences.contains(REFRESH_PERIOD_KEY + "-"
+						+ widgetId);
 	}
 }

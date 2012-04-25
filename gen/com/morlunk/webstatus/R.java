@@ -35,9 +35,10 @@ public final class R {
         public static final int navigation_accept=0x7f020012;
         public static final int navigation_cancel=0x7f020013;
         public static final int navigation_refresh=0x7f020014;
-        public static final int widget_preview=0x7f020015;
-        public static final int widget_preview_dark=0x7f020016;
-        public static final int widget_preview_light=0x7f020017;
+        public static final int uptime_logo=0x7f020015;
+        public static final int widget_preview=0x7f020016;
+        public static final int widget_preview_dark=0x7f020017;
+        public static final int widget_preview_light=0x7f020018;
     }
     public static final class id {
         public static final int create_button=0x7f070000;
@@ -56,6 +57,8 @@ public final class R {
         public static final int app_name=0x7f060000;
         public static final int loading=0x7f060003;
         public static final int status_content_description=0x7f060001;
+        public static final int support_email=0x7f060004;
+        public static final int support_subject=0x7f060005;
     }
     public static final class xml {
         public static final int widget=0x7f040000;

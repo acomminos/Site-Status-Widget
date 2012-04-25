@@ -4,5 +4,7 @@
     <string name="status_content_description">The status of the site the widget monitors.</string>
     <string name="add_widget">Add Widget</string>
     <string name="loading">Loading…</string>
+    <string name="support_email">andrewcomminos@gmail.com</string>
+    <string name="support_subject">Site Status Widget Feedback</string>
 
 </resources>

@@ -56,7 +56,10 @@ public class SiteStatusWidgetProvider extends AppWidgetProvider {
 		// Loop through app widgets, updating each one.
 		for(int x=0; x<appWidgetIds.length; x++) {
 			int widgetId = appWidgetIds[x];
-			updateWidget(context, widgetId);
+			// Make sure widget is defined before updating
+			if(SiteStatusPreferences.widgetExists(context, widgetId)) {
+				updateWidget(context, widgetId);
+			}
 		}
 	}
 }
