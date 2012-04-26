@@ -1,9 +1,12 @@
 package com.morlunk.webstatus;
 
 import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProviderInfo;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ComponentInfo;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
@@ -78,7 +81,26 @@ public class SiteStatusPreferences extends PreferenceActivity {
 				editor.commit();
 				
 				// Perform initial update
-				SiteStatusWidgetProvider.updateWidget(SiteStatusPreferences.this, mAppWidgetId);
+				// VERY MESSY! TODO find a better way
+				AppWidgetManager widgetManager = AppWidgetManager.getInstance(SiteStatusPreferences.this);
+				AppWidgetProviderInfo providerInfo = widgetManager.getAppWidgetInfo(mAppWidgetId);
+				ComponentName providerName = providerInfo.provider;
+				// Because SiteStatusWidgetProvider is an abstract class (so we can implement the widget type in subclasses) we can't make a static method that fetches the widget types.
+				// So, we have to instantiate the provider name of the widget in its provider info.
+				try {
+					Class<?> providerClass = Class.forName(providerName.getClassName());
+					SiteStatusWidgetProvider widgetProvider = (SiteStatusWidgetProvider) providerClass.newInstance();
+					widgetProvider.updateWidget(SiteStatusPreferences.this, mAppWidgetId);
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InstantiationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				// Return with widget ID
 				Intent resultValue = new Intent();

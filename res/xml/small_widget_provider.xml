@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android" android:minResizeWidth="40dp" android:configure="com.morlunk.webstatus.SiteStatusPreferences" android:updatePeriodMillis="0" android:minResizeHeight="40dp" android:minHeight="40dp" android:initialLayout="@layout/large_widget" android:minWidth="40dp" android:resizeMode="none" android:previewImage="@drawable/widget_preview">
+    
+
+</appwidget-provider>

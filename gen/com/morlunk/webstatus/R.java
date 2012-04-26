@@ -41,27 +41,31 @@ public final class R {
         public static final int widget_preview_light=0x7f020018;
     }
     public static final class id {
-        public static final int create_button=0x7f070000;
-        public static final int latency_text=0x7f070005;
-        public static final int site_title=0x7f070002;
-        public static final int site_url=0x7f070003;
-        public static final int status_refresh=0x7f070004;
-        public static final int widget_layout=0x7f070001;
+        public static final int create_button=0x7f070005;
+        public static final int latency_text=0x7f070004;
+        public static final int site_title=0x7f070001;
+        public static final int site_url=0x7f070002;
+        public static final int status_refresh=0x7f070003;
+        public static final int widget_layout=0x7f070000;
     }
     public static final class layout {
-        public static final int main=0x7f030000;
-        public static final int widget=0x7f030001;
+        public static final int large_widget=0x7f030000;
+        public static final int main=0x7f030001;
+        public static final int small_widget=0x7f030002;
     }
     public static final class string {
         public static final int add_widget=0x7f060002;
         public static final int app_name=0x7f060000;
+        public static final int large_widget_name=0x7f060006;
         public static final int loading=0x7f060003;
+        public static final int small_widget_name=0x7f060007;
         public static final int status_content_description=0x7f060001;
         public static final int support_email=0x7f060004;
         public static final int support_subject=0x7f060005;
     }
     public static final class xml {
-        public static final int widget=0x7f040000;
-        public static final int widgetpreferences=0x7f040001;
+        public static final int large_widget_provider=0x7f040000;
+        public static final int small_widget_provider=0x7f040001;
+        public static final int widgetpreferences=0x7f040002;
     }
 }

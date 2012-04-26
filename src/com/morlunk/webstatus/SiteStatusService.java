@@ -23,10 +23,22 @@ public class SiteStatusService extends IntentService {
 	protected void onHandleIntent(Intent intent) {
 		// Get remote views for widget
 		AppWidgetManager widgetManager = AppWidgetManager.getInstance(this);
-		RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.widget);
 
 		// Get passed widget ID
 		int mAppWidgetId = intent.getExtras().getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
+		
+		// Get widget type
+		int widgetType = intent.getExtras().getInt(SiteStatusWidgetProvider.SITE_STATUS_WIDGET_TYPE_ID);
+
+		RemoteViews remoteViews;
+		if(widgetType == SiteStatusWidgetProvider.SITE_STATUS_LARGE_WIDGET) {
+			 remoteViews = new RemoteViews(getPackageName(), R.layout.large_widget);
+		} else if(widgetType == SiteStatusWidgetProvider.SITE_STATUS_SMALL_WIDGET) {
+			remoteViews = new RemoteViews(getPackageName(), R.layout.small_widget);
+		} else {
+			Log.i("Site Status Widget", "Unknown widget type passed!");
+			return;
+		}
 		
 		// Get values
 		String siteName = SiteStatusPreferences.getSiteName(this, mAppWidgetId);
@@ -60,11 +72,16 @@ public class SiteStatusService extends IntentService {
 		
 		// Set name and URL, and image
 		remoteViews.setTextViewText(R.id.site_title, siteName);
-		remoteViews.setTextViewText(R.id.site_url, siteUrl);
 		remoteViews.setTextViewText(R.id.latency_text, time+"ms");
 		remoteViews.setImageViewResource(R.id.status_refresh, code == 200 ? R.drawable.navigation_accept : R.drawable.navigation_cancel);
+		
+		// Site URL only applies to large widget
+		if(widgetType == SiteStatusWidgetProvider.SITE_STATUS_LARGE_WIDGET) {
+			remoteViews.setTextViewText(R.id.site_url, siteUrl);
+		}
+		
 		// Set on click action to start the service
-		remoteViews.setOnClickPendingIntent(R.id.widget_layout, PendingIntent.getService(this, mAppWidgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT));
+		remoteViews.setOnClickPendingIntent(R.id.widget_layout, PendingIntent.getService(this, mAppWidgetId, intent, PendingIntent.FLAG_CANCEL_CURRENT));
 		widgetManager.updateAppWidget(mAppWidgetId, remoteViews);
 		
 		// Log update

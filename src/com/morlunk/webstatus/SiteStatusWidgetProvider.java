@@ -9,8 +9,30 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.util.Log;
 
-public class SiteStatusWidgetProvider extends AppWidgetProvider {
-	public static void updateWidget(Context context, int widgetId) {
+public abstract class SiteStatusWidgetProvider extends AppWidgetProvider {
+	
+	public static final String SITE_STATUS_WIDGET_TYPE_ID = "siteStatusWidgetType";
+	
+	public static final int SITE_STATUS_LARGE_WIDGET = 0;
+	public static final int SITE_STATUS_SMALL_WIDGET = 1;
+	
+	/**
+	 * To be implemented by subclasses.
+	 * @return The widget type.
+	 */
+	public abstract int getWidgetType();
+	
+	/**
+	 * Forces a widget update, usually called after the configuration activity is run. Basically does what the answer in
+	 * http://stackoverflow.com/questions/3818545/how-do-i-force-an-update-in-a-configuration-activity describes.
+	 * @param context
+	 * @param widgetId
+	 */
+	public static void messyForceUpdate(Context context, int widgetId) {
+		//SiteStatusWidgetProvider.clas
+	}
+	
+	public void updateWidget(Context context, int widgetId) {
 		// Get update interval
 		long interval = SiteStatusPreferences.getRefreshPeriod(context,
 				widgetId);
@@ -18,6 +40,7 @@ public class SiteStatusWidgetProvider extends AppWidgetProvider {
 		// Begin schedule
 		final Intent intent = new Intent(context, SiteStatusService.class);
 		intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+		intent.putExtra(SITE_STATUS_WIDGET_TYPE_ID, getWidgetType());
 		final PendingIntent pending = PendingIntent.getService(context, widgetId,
 				intent, PendingIntent.FLAG_CANCEL_CURRENT);
 		final AlarmManager alarm = (AlarmManager) context
