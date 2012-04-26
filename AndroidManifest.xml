@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.morlunk.webstatus"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="2"
+    android:versionName="1.1" >
 
-    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="14"/>
+    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="15"/>
 	<uses-permission android:name="android.permission.INTERNET" />
 	
     <application android:icon="@drawable/uptime_logo"
         android:label="@string/app_name" android:hardwareAccelerated="true">>
-        <receiver android:name=".SiteStatusSmallWidgetProvider" >
+        <receiver android:name=".SiteStatusSmallWidgetProvider" android:label="@string/small_widget_name">
     		<intent-filter>
         		<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
     		</intent-filter>
     		<meta-data android:name="android.appwidget.provider"
            	   	 	   android:resource="@xml/small_widget_provider" />
 		</receiver>
-		<receiver android:name=".SiteStatusLargeWidgetProvider" >
+		<receiver android:name=".SiteStatusLargeWidgetProvider" android:label="@string/large_widget_name" >
     		<intent-filter>
         		<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
     		</intent-filter>

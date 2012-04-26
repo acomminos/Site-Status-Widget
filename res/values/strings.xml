@@ -6,7 +6,7 @@
     <string name="loading">Loading…</string>
     <string name="support_email">andrewcomminos@gmail.com</string>
     <string name="support_subject">Site Status Widget Feedback</string>
-    <string name="large_widget_name">Site Status Widget</string>
-    <string name="small_widget_name">Site Status Widget</string>
+    <string name="large_widget_name">Site Status 4x1</string>
+    <string name="small_widget_name">Site Status 1x1</string>
 
 </resources>

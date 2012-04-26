@@ -32,13 +32,14 @@ public final class R {
         public static final int appwidget_inner_pressed_l=0x7f02000f;
         public static final int appwidget_inner_pressed_r=0x7f020010;
         public static final int ic_launcher=0x7f020011;
-        public static final int navigation_accept=0x7f020012;
-        public static final int navigation_cancel=0x7f020013;
-        public static final int navigation_refresh=0x7f020014;
-        public static final int uptime_logo=0x7f020015;
-        public static final int widget_preview=0x7f020016;
-        public static final int widget_preview_dark=0x7f020017;
-        public static final int widget_preview_light=0x7f020018;
+        public static final int large_widget_preview=0x7f020012;
+        public static final int navigation_accept=0x7f020013;
+        public static final int navigation_cancel=0x7f020014;
+        public static final int navigation_refresh=0x7f020015;
+        public static final int small_widget_preview=0x7f020016;
+        public static final int uptime_logo=0x7f020017;
+        public static final int widget_preview_dark=0x7f020018;
+        public static final int widget_preview_light=0x7f020019;
     }
     public static final class id {
         public static final int create_button=0x7f070005;
